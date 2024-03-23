@@ -1,0 +1,58 @@
+{% load i18n static admin_datta %}
+
+<nav class="pcoded-navbar">
+  <div class="navbar-wrapper">
+    <div class="navbar-brand header-logo">
+      <a href="{% url 'index' %}" class="b-brand">
+        <div class="b-bg">
+          <i class="feather icon-trending-up"></i>
+        </div>
+        <span class="b-title">Datta Able</span>
+      </a>
+      <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+      <!-- Navbar Brand -->
+    </div>
+    <div class="navbar-content scroll-div">
+      <ul class="nav pcoded-inner-navbar">
+        <!-- Dashboard -->
+        <li class="nav-item pcoded-menu-caption">
+          <label>Navigation</label>
+        </li>
+        <li class="nav-item {% if 'index' in segment %}active{% endif %}">
+          <a href="{% url 'index' %}" class="nav-link ">
+            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+            <span class="pcoded-mtext">Dashboard</span>
+          </a>
+        </li>
+
+        <!-- Authentication -->
+        <li class="nav-item pcoded-hasmenu">
+          <a href="javascript:" class="nav-link ">
+            <span class="pcoded-micon"><i class="feather icon-lock"></i></span>
+            <span class="pcoded-mtext">Authentication</span>
+          </a>
+          <ul class="pcoded-submenu">
+            <li><a href="{% url 'login' %}" class="">Sign IN</a></li>
+            <li><a href="{% url 'register' %}" class="">Create User</a></li>
+          </ul>
+        </li>
+
+        {% if request.user.is_authenticated %}
+        <!-- After User Signs In -->
+        <li class="nav-item">
+          <a href="{% url 'data_entry' %}" class="nav-link ">
+            <span class="pcoded-micon"><i class="feather icon-upload"></i></span>
+            <span class="pcoded-mtext">Data Entry</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'delete_data' %}" class="nav-link ">
+            <span class="pcoded-micon"><i class="feather icon-trash"></i></span>
+            <span class="pcoded-mtext">Delete Data</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

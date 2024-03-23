@@ -1,0 +1,40 @@
+<!-- delete_data.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Data</title>
+</head>
+<body>
+  <h1>Delete Data</h1>
+  
+  <form method="post" id="deleteTableForm">
+    {% csrf_token %}
+    <label for="tableSelect">Select a table:</label>
+    <select name="tableSelect" id="tableSelect">
+      <option value="ActiveJobPostings">Active Job Postings</option>
+      <option value="Applicants">Applicants</option>
+      <option value="Interviewer">Interviewer</option>
+      <!-- Add options for other tables -->
+    </select>
+    <button type="submit">Show Data</button>
+  </form>
+  
+  <div id="tableData">
+    <!-- Table data will be loaded here dynamically -->
+  </div>
+
+  <script>
+    document.getElementById('deleteTableForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var selectedTable = document.getElementById('tableSelect').value;
+      
+      fetch(`/get_data/${selectedTable}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('tableData').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>

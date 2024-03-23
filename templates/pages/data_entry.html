@@ -1,0 +1,91 @@
+
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div class="container mt-5">
+    <h1>Select a Table to Alter:</h1>
+    <form method="post" action="{% url 'submit_data' %}">
+        {% csrf_token %}
+        <select id="table_select" name="table_select" class="form-control">
+            <option value="ActiveJobPostings">Active Job Postings</option>
+            <option value="Applicants">Applicants</option>
+            <option value="Interviewer">Interviewer</option>
+            <option value="WeeklyInterviews">Weekly Interviews</option>
+            <option value="Placements">Placements</option>
+        </select>
+        <div id="form_fields" class="mt-3">
+            <!-- Fields will be dynamically populated here based on selection -->
+        </div>
+        <input type="submit" class="btn btn-primary mt-3" value="Submit">
+    </form>
+   
+    <script>
+        document.getElementById('table_select').addEventListener('change', function() {
+            var selectedTable = this.value;
+            var formFieldsDiv = document.getElementById('form_fields');
+            formFieldsDiv.innerHTML = ""; // Clear previous fields
+
+            // Add fields dynamically based on the selected table
+            switch(selectedTable) {
+                case 'ActiveJobPostings':
+                    formFieldsDiv.innerHTML += `
+                        <input type="text" name="job_title" class="form-control" placeholder="Job Title" required><br>
+                        <textarea name="job_description" class="form-control" placeholder="Job Description" required></textarea><br>
+                        <input type="date" name="date_posted" class="form-control" placeholder="Date Posted" required><br>
+                        <input type="text" name="technology_stack" class="form-control" placeholder="Technology Stack" required><br>
+                        <textarea name="required_skills" class="form-control" placeholder="Required Skills" required></textarea><br>
+                        <input type="text" name="experience_level" class="form-control" placeholder="Experience Level" required><br>
+                    `;
+                    break;
+                case 'Applicants':
+                    formFieldsDiv.innerHTML += `
+                        <input type="text" name="name" class="form-control" placeholder="Name" required><br>
+                        <input type="email" name="email" class="form-control" placeholder="Email"><br>
+                        <input type="text" name="phone_number" class="form-control" placeholder="Phone Number"><br>
+                        <input type="text" name="applied_job" class="form-control" placeholder="Applied Job" required><br>
+                        <input type="text" name="status" class="form-control" placeholder="Status" required><br>
+                        <textarea name="skills" class="form-control" placeholder="Skills" required></textarea><br>
+                        <textarea name="experience" class="form-control" placeholder="Experience" required></textarea><br>
+                    `;
+                    break;
+                case 'Interviewer':
+                    formFieldsDiv.innerHTML += `
+                        <input type="text" name="name" class="form-control" placeholder="Name" required><br>
+                        <input type="text" name="role" class="form-control" placeholder="Role" required><br>
+                        <input type="email" name="email" class="form-control" placeholder="Email"><br>
+                    `;
+                    break;
+                case 'WeeklyInterviews':
+                    formFieldsDiv.innerHTML += `
+                        <input type="date" name="interview_date" class="form-control" placeholder="Interview Date" required><br>
+                        <input type="text" name="interviewer" class="form-control" placeholder="Candidate" required><br>
+                        <input type="text" name="candidate" class="form-control" placeholder="Interviewer" required><br>
+                        <input type="text" name="job_posting" class="form-control" placeholder="Job Posting" required><br>
+                        <input type="text" name="interview_outcome" class="form-control" placeholder="Interview Outcome" required><br>
+                        <textarea name="comments" class="form-control" placeholder="Comments"></textarea><br>
+                    `;
+                    break;
+                case 'Placements':
+                    formFieldsDiv.innerHTML += `
+                        <input type="text" name="candidate" class="form-control" placeholder="Candidate" required><br>
+                        <input type="text" name="job_posting" class="form-control" placeholder="Job Posting" required><br>
+                        <input type="date" name="placement_date" class="form-control" placeholder="Placement Date" required><br>
+                        <input type="number" name="salary" class="form-control" placeholder="Salary" required><br>
+                        <input type="text" name="placement_status" class="form-control" placeholder="Placement Status" required><br>
+                        <input type="text" name="contract_type" class="form-control" placeholder="Contract Type"><br>
+                    `;
+                    break;
+            }
+        });
+    </script>
+  </div>
+  <!-- [ Main Content ] end -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ {% endblock content %}

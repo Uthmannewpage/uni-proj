@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h1>Select a Table:</h1>
+    <form method="get" action="{% url 'manage_table' 'ActiveJobPostings' %}">
+      <select name="table_name" id="table_select" class="form-control">
+        <option value="ActiveJobPostings">Active Job Postings</option>
+        <option value="Applicants">Applicants</option>
+        <option value="Interviewer">Interviewer</option>
+        <option value="WeeklyInterviews">Weekly Interviews</option>
+        <option value="Placements">Placements</option>
+      </select>
+      <input type="submit" value="Manage" class="btn btn-primary mt-3">
+    </form>
+  </div>
+{% endblock %}

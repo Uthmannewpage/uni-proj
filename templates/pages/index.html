@@ -1,0 +1,400 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+{% block content %}
+
+  <!-- [ Main Content ] start -->
+  <div class="row">
+    
+    <!--[ daily sales section ] start-->
+    <div class="col-md-6 col-xl-4">
+      <div class="card daily-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Total Interviews</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                  class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{total_interviews}}
+            </div>
+
+            <div class="col-3 text-right">
+              <p class="m-b-0">100%</p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;"
+              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+
+
+
+    <div class="col-md-6 col-xl-4">
+      <div class="card Monthly-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Accepted</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                  class="feather icon-arrow-down text-c-red f-30 m-r-10"></i> {{accepted_interviews_this_week}}</h3>
+            </div>
+            <div class="col-3 text-right">
+              <p class="m-b-0">66%</p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme2" role="progressbar" style="width: 35%;"
+              aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  
+    <div class="col-md-12 col-xl-4">
+      <div class="card yearly-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Rejected</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                  class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{rejected_outcomes_this_week}}</h3>
+            </div>
+            <div class="col-3 text-right">
+              <p class="m-b-0">33%</p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme" role="progressbar" style="width: 70%;"
+              aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-8 col-md-12 m-b-30">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+              <a class="nav-link active show" id="interviews-tab" data-toggle="tab" href="#interviews" role="tab" aria-controls="interviews" aria-selected="true">Interviews</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="myTabContent" style="width: 100%; overflow-x: auto;">
+          <div class="tab-pane fade active show" id="interviews" role="tabpanel" aria-labelledby="interviews-tab">
+              <table class="table table-hover" style="border-collapse: collapse;">
+                  <thead>
+                      <tr>
+                          <th style="padding: 5px;">Interview Date</th>
+                          <th style="padding: 5px;">Interviewers</th>
+                          <th style="padding: 5px;">Job Posting</th>
+                          <th style="padding: 5px;">Interview Outcome</th>
+                          <th style="padding: 5px;">Comments</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for interview in interviews_list %}
+                      <tr>
+                          <td>{{ interview.interview_date }}</td>
+                          <td>{{ interview.candidate }}</td>
+                          <td>{{ interview.job_posting }}</td>
+                          <td>{{ interview.interview_outcome }}</td>
+                          <td>{{ interview.comments }}</td>
+                          <td>
+                            <form method="post" action="{% url 'delete_interview' interview.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  </div>
+        
+
+    
+
+
+  <!--applicants-->
+          <div class="row">
+    
+            <!--[ daily sales section ] start-->
+            <div class="col-md-6 col-xl-4">
+              <div class="card daily-sales">
+                <div class="card-block">
+                  <h6 class="mb-4">Total Applicants</h6>
+                  <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                      <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                          class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{total_applicants}}
+                    </div>
+        
+                    <div class="col-3 text-right">
+                      <p class="m-b-0">100%</p>
+                    </div>
+                  </div>
+                  <div class="progress m-t-30" style="height: 7px;">
+                    <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;"
+                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+         
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="card daily-sales">
+            <div class="card-block">
+              <h6 class="mb-4">Pending Applicants</h6>
+              <div class="row d-flex align-items-center">
+                <div class="col-9">
+                  <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                      class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{pending_applicants}}
+                </div>
+    
+                <div class="col-3 text-right">
+                  <p class="m-b-0">100%</p>
+                </div>
+              </div>
+              <div class="progress m-t-30" style="height: 7px;">
+                <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;"
+                  aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      
+  </div>
+          
+            <div class="col-xl-8 col-md-12 m-b-30">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                      <a class="nav-link active show" id="applicants-tab" data-toggle="tab" href="#applicants" role="tab" aria-controls="applicants" aria-selected="true">Applicants</a>
+                  </li>
+              </ul>
+              <div class="tab-content" id="myTabContent" style="width: 150%; overflow-x: auto;">
+                  <div class="tab-pane fade active show" id="applicants" role="tabpanel" aria-labelledby="applicants-tab">
+                      <table class="table table-hover" style="border-collapse: collapse;">
+                          <thead>
+                              <tr>
+                                  <th style="padding: 5px;">Name</th>
+                                  <th style="padding: 5px;">Email</th>
+                                  <th style="padding: 5px;">Phone Number</th>
+                                  <th style="padding: 5px;">Applied Job</th>
+                                  <th style="padding: 5px;">Status</th>
+                                  <th style="padding: 5px;">Skills</th>
+                                  <th style="padding: 5px;">Experience</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for applicant in applicants_list %}
+                              <tr>
+                                  <td>{{ applicant.name }}</td>
+                                  <td>{{ applicant.email }}</td>
+                                  <td>{{ applicant.phone_number }}</td>
+                                  <td>{{ applicant.applied_job }}</td>
+                                  <td>{{ applicant.status }}</td>
+                                  <td>{{ applicant.skills }}</td>
+                                  <td>{{ applicant.experience }}</td>
+                                  <td>
+                                    <form method="post" action="{% url 'delete_applicant' applicant.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          
+
+  
+  
+
+    <!-- job postings -->
+    <div class="row">
+    
+      <!--[ daily sales section ] start-->
+      <div class="col-md-6 col-xl-4">
+        <div class="card daily-sales">
+          <div class="card-block">
+            <h6 class="mb-4">Total Jobs Posted</h6>
+            <div class="row d-flex align-items-center">
+              <div class="col-9">
+                <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                    class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{total_active_job_postings}}
+              </div>
+  
+              <div class="col-3 text-right">
+                <p class="m-b-0">100%</p>
+              </div>
+            </div>
+            <div class="progress m-t-30" style="height: 7px;">
+              <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;"
+                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  
+    <div class="col-xl-8 col-md-12 m-b-30">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+              <a class="nav-link active show" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="myTabContent" style="width: 160%; overflow-x: auto;">
+          <div class="tab-pane fade active show" id="active" role="tabpanel" aria-labelledby="active-tab">
+              <table class="table table-hover" style="border-collapse: collapse;">
+                  <thead>
+                      <tr>
+                          <th style="padding: 5px;"></th>
+                          <th style="padding: 5px;">Job Title</th>
+                          <th style="padding: 5px;">Description</th>
+                          <th style="padding: 5px;">Date Posted</th>
+                          <th style="padding: 5px;">Technology Stack</th>
+                          <th style="padding: 5px;">Required Skills</th>
+                          <th style="padding: 5px;">Experience Level</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for job in job_postings_list %}
+                      <tr>
+                        <td>
+                          <img class="rounded-circle" style="width: 40px;" src="{% static 'assets/images/user/avatar-2.jpg' %}" alt="candidate-image">
+                        </td>
+                          <td>{{ job.job_title }}</td>
+                          <td>{{ job.job_description }}</td>
+                          <td>{{ job.date_posted }}</td>
+                          <td>{{ job.technology_stack }}</td>
+                          <td>{{ job.required_skills }}</td>
+                          <td>{{ job.experience_level }}</td>
+                          <td>
+                            <form method="post" action="{% url 'delete_job_posting' job.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+  <div class="row">
+    
+    <!--[ daily sales section ] start-->
+    <div class="col-md-6 col-xl-4">
+      <div class="card daily-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Total Placements</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                  class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{total_placements}}
+            </div>
+
+            <div class="col-3 text-right">
+              <p class="m-b-0">100%</p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;"
+              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+      <div class="col-md-6 col-xl-4">
+        <div class="card daily-sales">
+          <div class="card-block">
+            <h6 class="mb-4">Placements This Week</h6>
+            <div class="row d-flex align-items-center">
+              <div class="col-9">
+                <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                    class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{placements_this_week}}
+              </div>
+  
+              <div class="col-3 text-right">
+                <p class="m-b-0">100%</p>
+              </div>
+            </div>
+            <div class="progress m-t-30" style="height: 7px;">
+              <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;"
+                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+    <div class="col-xl-8 col-md-12 m-b-30">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+              <a class="nav-link active show" id="placements-tab" data-toggle="tab" href="#placements" role="tab" aria-controls="placements" aria-selected="true">Placements</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="myTabContent" style="width: 150%; overflow-x: auto;">
+          <div class="tab-pane fade active show" id="placements" role="tabpanel" aria-labelledby="placements-tab">
+              <table class="table table-hover" style="border-collapse: collapse;">
+                  <thead>
+                      <tr>
+                          <th style="padding: 5px;">Candidate</th>
+                          <th style="padding: 5px;">Job Posting</th>
+                          <th style="padding: 5px;">Placement Date</th>
+                          <th style="padding: 5px;">Salary</th>
+                          <th style="padding: 5px;">Placement Status</th>
+                          <th style="padding: 5px;">Contract Type</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for placement in placements_list %}
+                      <tr>
+                          <td>{{ placement.candidate }}</td>
+                          <td>{{ placement.job_posting }}</td>
+                          <td>{{ placement.placement_date }}</td>
+                          <td>{{ placement.salary }}</td>
+                          <td>{{ placement.placement_status }}</td>
+                          <td>{{ placement.contract_type }}</td>
+                          <td>
+                            <form method="post" action="{% url 'delete_placement' placement.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  
+  
+</div>
+</div>
+
+{% endblock content %}
